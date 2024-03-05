@@ -12,6 +12,7 @@ import {
   LineChartOutlined,
   ExperimentOutlined,
   GithubOutlined,
+  ThunderboltOutlined
 } from "@ant-design/icons";
 
 export const Header = ({
@@ -57,6 +58,14 @@ export const Header = ({
         <Link href="/about">
           <Tooltip title="About zkalc">
             <QuestionCircleOutlined
+              style={{ fontSize: "25px", color: "black" }}
+            />
+          </Tooltip>
+        </Link>
+        &nbsp;&nbsp;&nbsp;
+        <Link href="/cookbook">
+          <Tooltip title="Cookbook">
+            <ThunderboltOutlined
               style={{ fontSize: "25px", color: "black" }}
             />
           </Tooltip>
