@@ -314,4 +314,25 @@ export const machines_selection = Object.fromEntries(
   ])
 );
 
+export const backends = {
+  "kzg": {
+    "label": "kzg",
+    "param": "n"
+  },
+  "bulletproof": {
+    "label": "bulletproof",
+    "param": "n"
+  },
+  "gnark_plonk": {
+    "label": "gnark_plonk",
+    "param": "r1cs"
+  },
+  "groth16": {
+    "label": "groth16",
+    "param": "r1cs"
+  },
+};
+
 export const curves_selection = Object.keys(curves).map(curve => curves[curve]);
+
+export const backends_selection = Object.keys(backends).map(backend => backends[backend]);
