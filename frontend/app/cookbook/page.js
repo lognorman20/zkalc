@@ -35,6 +35,7 @@ import {
   machines_selection,
   libraries_selection,
   curves_selection,
+  proof_task_selection,
 } from "../../lib/selections";
 import {
   cookbook,
@@ -48,18 +49,27 @@ import defaults from "../../data/defaults.json";
 const { Text } = Typography;
 
 export default function Home() {
-  const [recipe, setRecipe] = React.useState([]);
-
   const [cfg, setCfg] = React.useState(defaults);
+  const [proofTask, setProofTask] = React.useState("verify")
+  const [humanTimeFormat, setHumanTimeFormat] = React.useState(true);
 
-  const est = (item) => {
+  const formatTime = (num) => (humanTimeFormat ? humanTime : siTime)(num);
+
+  const est = () => {
     return estimator(
       cfg.curve,
       cfg.lib,
       cfg.machine,
-      item.op
+      cfg.op
     );
   };
+
+  const estimate = () => {
+    const param = 1234; // n or r1cs
+    const cookbook_operations = {
+      // kzg: () => 
+    }
+  }
 
   const handleLibChange = (new_lib) => {
     let new_curve = cfg.curve;
@@ -71,7 +81,7 @@ export default function Home() {
       )[0].key;
     }
 
-    setCfg({ curve: new_curve, lib: new_lib, machine: new_machine, backend: cfg.backend });
+    setCfg({ curve: new_curve, lib: new_lib, op: cfg.op, machine: new_machine, backend: cfg.backend });
   };
 
   const handleCurveChange = (new_curve) => {
@@ -89,23 +99,28 @@ export default function Home() {
       )[0].key;
     }
 
-    setCfg({ curve: new_curve, lib: new_lib, machine: new_machine, backend: cfg.backend });
+    setCfg({ curve: new_curve, lib: new_lib, op: cfg.op, machine: new_machine, backend: cfg.backend });
   };
 
   const handleMachineChange = (new_machine) => {
-    setCfg({ curve: cfg.curve, lib: cfg.lib, machine: new_machine, backend: cfg.backend });
+    setCfg({ curve: cfg.curve, lib: cfg.lib, op: cfg.op, machine: new_machine, backend: cfg.backend });
   };
 
   const handleBackendChange = (index) => {
     const selectedBackend = backends_selection[index];
-    setCfg({ curve: cfg.curve, lib: cfg.lib, machine: cfg.machine, backend: selectedBackend.label });
+    setCfg({ curve: cfg.curve, lib: cfg.lib, op: cfg.op, machine: cfg.machine, backend: selectedBackend.label });
   };
+
+  const handleOpChange = (new_op) => {
+    setCfg({ curve: cfg.curve, lib: cfg.lib, op: new_op, machine: cfg.machine, backend: cfg.backend });
+  }
 
   const BackendSelection = () => {
     const lib = cfg.lib;
     const curve = cfg.curve;
     const machine = cfg.machine;
     const backend = cfg.backend;
+    const op = cfg.op;
     // TODO: Add data member for r1cs or n
 
     return (
@@ -140,7 +155,14 @@ export default function Home() {
             </Space>
           </a>
         </Dropdown>
-        implemented in &nbsp;
+        with the operation
+        <Select
+          style={{ width: 200, padding: 5 }}
+          defaultValue={op}
+          options={operations_selection}
+          onChange={handleOpChange}
+        />
+         implemented in &nbsp;
         <Tooltip
           placement="top"
           title={`${libraries[lib].label} v${libraries[lib].version}`}
@@ -183,6 +205,22 @@ export default function Home() {
             </a>
           </Dropdown>
         </Tooltip>
+        doing the &nbsp;
+        <Dropdown
+          menu={{
+            items: proof_task_selection,
+            onClick: ({ key }) => setProofTask(key),
+          }}
+        >
+          <a onClick={(e) => e.preventDefault()}>
+            <Space>
+              {proofTask}
+              <DownOutlined style={{ fontSize: "10px", margin: "-10px" }} />
+              &nbsp;
+            </Space>
+          </a>
+        </Dropdown>
+        step. &nbsp;
       </>
     );
   };
@@ -195,6 +233,10 @@ export default function Home() {
           <BackendSelection />
         </Text>
       </Row>
+
+      <Text align="center" fontSize={20} color="#999">
+        {estimate()}
+      </Text>
 
       <br />
       <br />

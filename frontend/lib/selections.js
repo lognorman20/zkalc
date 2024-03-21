@@ -295,6 +295,13 @@ export const libraries_selection = Object.fromEntries(Object.keys(curves).map((c
       disabled: libraries[lib].disabled || !(curve in estimates) || !(lib in estimates[curve]) || false}))
 ]));
 
+export const proof_task_selection = [
+  { key: "verify", label: "Verify" },
+  { key: "commit", label: "Commit" },
+  { key: "open", label: "Open" },
+  { key: "prove", label: "Prove" }
+];
+
 export const machines_selection = Object.fromEntries(
   Object.keys(estimates).map((curve) => [
     curve,
