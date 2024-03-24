@@ -87,25 +87,25 @@ export default function Home() {
         form={cookbookForm}
         name="cookbook-form"
         onFinish={onFinish}
-        layout="horizontal"
+        layout="inline"
         style={{ maxWidth: 600 }}
       >
-        <Form.Item label="Proving System" name="backend" >
+        <Form.Item label="Proving System" name="backend" style={{ marginBottom: '8px' }}>
           <Select style={{ width: 130 }} options={backends_selection} />
         </Form.Item>
-        <Form.Item label="Curve" name="curve" >
+        <Form.Item label="Curve" name="curve" style={{ marginBottom: '8px' }}>
           <Select style={{ width: 130 }} options={Object.values(curves).map(({ key }) => ({ key, value: key }))} />
         </Form.Item>
-        <Form.Item label="Operation" name="operation" >
+        <Form.Item label="Operation" name="operation" style={{ marginBottom: '8px' }}>
           <Select style={{ width: 190 }} options={operations_selection} />
         </Form.Item>
-        <Form.Item label="Library" name="library" >
+        <Form.Item label="Library" name="library" style={{ marginBottom: '8px' }}>
           <Select style={{ width: 190 }} options={getLibraries(curve)} />
         </Form.Item>
-        <Form.Item label="Machine" name="machine" >
+        <Form.Item label="Machine" name="machine" style={{ marginBottom: '8px' }}>
           <Select style={{ width: 190 }} options={getMachines(curve, lib)} />
         </Form.Item>
-        <Form.Item label="Proof Task" name="proof_task" >
+        <Form.Item label="Proof Task" name="proof_task" style={{ marginBottom: '8px' }}>
           <Select style={{ width: 100 }} options={proof_task_selection} />
         </Form.Item>
 
@@ -122,7 +122,7 @@ export default function Home() {
   return (
     <Layout>
       <Row align="center">
-        <Text align="left" fontSize={20} color="#999">
+        <Text fontSize={20} color="#999">
           <BackendSelection />
         </Text>
       </Row>

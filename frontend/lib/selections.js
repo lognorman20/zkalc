@@ -301,7 +301,8 @@ export const proof_task_selection = [
   { value: "verify", label: "Verify" },
   { value: "commit", label: "Commit" },
   { value: "open", label: "Open" },
-  { value: "prove", label: "Prove" }
+  { value: "prove", label: "Prove" },
+  { value: "all", label: "All" }
 ];
 
 export const machines_selection = Object.fromEntries(
