@@ -52,11 +52,32 @@ export default function Home() {
   const [cookbookForm] = Form.useForm();
 
   const BackendSelection = () => {
-    // const lib = cfg.lib;
-    // const curve = cfg.curve;
-    // const machine = cfg.machine;
-    // const backend = cfg.backend;
-    // const op = cfg.op;
+    const curve = Form.useWatch('curve', cookbookForm);
+    const op = Form.useWatch('operation', cookbookForm);
+    const lib = Form.useWatch('library', cookbookForm);
+
+    const getLibraries = (curve) => {
+      if (curve in libraries_selection) {
+        return libraries_selection[curve].map(option => ({
+          ...option,
+          value: option.key
+        }));
+      }
+      return [];
+    };
+
+    const getMachines = (cur_curve, cur_lib) => {
+      if (cur_curve in machines_selection) {
+        if (cur_lib in machines_selection[cur_curve]) {
+          return machines_selection[cur_curve][cur_lib].map(option => ({
+            ...option,
+            value: option.key
+          }));
+        }
+      }
+      return [];
+    }
+
     const onFinish = (values) => {
       console.log(values);
     };
@@ -69,11 +90,23 @@ export default function Home() {
         layout="horizontal"
         style={{ maxWidth: 600 }}
       >
-        <Form.Item label="Proving System" name="backend" required>
+        <Form.Item label="Proving System" name="backend" >
           <Select style={{ width: 130 }} options={backends_selection} />
         </Form.Item>
-        <Form.Item label="Curve" name="curve" required>
+        <Form.Item label="Curve" name="curve" >
           <Select style={{ width: 130 }} options={Object.values(curves).map(({ key }) => ({ key, value: key }))} />
+        </Form.Item>
+        <Form.Item label="Operation" name="operation" >
+          <Select style={{ width: 190 }} options={operations_selection} />
+        </Form.Item>
+        <Form.Item label="Library" name="library" >
+          <Select style={{ width: 190 }} options={getLibraries(curve)} />
+        </Form.Item>
+        <Form.Item label="Machine" name="machine" >
+          <Select style={{ width: 190 }} options={getMachines(curve, lib)} />
+        </Form.Item>
+        <Form.Item label="Proof Task" name="proof_task" >
+          <Select style={{ width: 100 }} options={proof_task_selection} />
         </Form.Item>
 
         <Form.Item>

@@ -298,10 +298,10 @@ export const libraries_selection = Object.fromEntries(Object.keys(curves).map((c
 ]));
 
 export const proof_task_selection = [
-  { key: "verify", label: "Verify" },
-  { key: "commit", label: "Commit" },
-  { key: "open", label: "Open" },
-  { key: "prove", label: "Prove" }
+  { value: "verify", label: "Verify" },
+  { value: "commit", label: "Commit" },
+  { value: "open", label: "Open" },
+  { value: "prove", label: "Prove" }
 ];
 
 export const machines_selection = Object.fromEntries(
