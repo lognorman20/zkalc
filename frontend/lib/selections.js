@@ -291,8 +291,10 @@ export const operations_selection = Object.keys(operations).map((operation) => {
 
 export const libraries_selection = Object.fromEntries(Object.keys(curves).map((curve) => [
   curve,
-  Object.keys(libraries).map(lib => ({label: libraries[lib].label, key: lib,
-      disabled: libraries[lib].disabled || !(curve in estimates) || !(lib in estimates[curve]) || false}))
+  Object.keys(libraries).map(lib => ({
+    label: libraries[lib].label, key: lib,
+    disabled: libraries[lib].disabled || !(curve in estimates) || !(lib in estimates[curve]) || false
+  }))
 ]));
 
 export const proof_task_selection = [
@@ -323,20 +325,20 @@ export const machines_selection = Object.fromEntries(
 
 export const backends = {
   "kzg": {
-    "label": "kzg",
-    "param": "n"
+    "label": "KZG",
+    "value": "kzg"
   },
   "bulletproof": {
-    "label": "bulletproof",
-    "param": "n"
+    "label": "Bulletproof",
+    "value": "bulletproof"
   },
   "gnark_plonk": {
-    "label": "gnark_plonk",
-    "param": "r1cs"
+    "label": "gnark-crypto",
+    "value": "gnark_plonk"
   },
   "groth16": {
-    "label": "groth16",
-    "param": "r1cs"
+    "label": "Groth16",
+    "value": "groth16"
   },
 };
 
